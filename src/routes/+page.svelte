@@ -42,9 +42,9 @@ function validateMinute(event) {
 
 let dateOfBirth = new Date(selectedYear, selectedMonth - 1, selectedDay, selectedHour, selectedMinute)
 let previousDateOfBirth = new Date(selectedYear, selectedMonth - 1, selectedDay, selectedHour, selectedMinute)
-let oneMillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1000000)
-let oneBillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1000000000)
-let specialNumberFromBirthDate = new Date(dateOfBirth.getTime() + 1234567890)
+let oneMillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1_000_000*1000)
+let oneBillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1_000_000_000*1000)
+let specialNumberFromBirthDate = new Date(dateOfBirth.getTime() + 1_234_567_890*1000)
 
 // how many seconds since dateOfBirth
 function lifetimeInSeconds(dateOfBirth) {
@@ -75,9 +75,9 @@ $: {
   previousDateOfBirth = dateOfBirth
   dateOfBirth = new Date(selectedYear, selectedMonth - 1, selectedDay, selectedHour, selectedMinute)
 
-  oneMillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1000000)
-  oneBillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1000000000)
-  specialNumberFromBirthDate = new Date(dateOfBirth.getTime() + 1234567890)
+  oneMillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1_000_000*1000)
+  oneBillionSecondsFromBirthDate = new Date(dateOfBirth.getTime() + 1_000_000_000*1000)
+  specialNumberFromBirthDate = new Date(dateOfBirth.getTime() + 1_234_567_890*1000)
 
   if (dateOfBirth != previousDateOfBirth) {
     clearInterval(interval);
@@ -169,28 +169,36 @@ $: {
   />
 </section>
 <h2 class="text-2xl text-center">Wow, amazing..</h2>
-  <p>
-    You are <span class="m-1 text-5xl text-transparent bg-clip-text bg-gradient-to-r from-purple-800 to-blue-500">
-    {formatSeconds(currentSecondsLifeSpan)}
-  </span> seconds old!
+  <p>You are</p>
+    <span class="p-4 m-1 text-5xl text-transparent border-t-0 border-b-2 border-l-0 border-r-4 border-purple-800 rounded-2xl hover:scale-200 transition bg-clip-text bg-gradient-to-r from-purple-800 to-blue-500">
+      {formatSeconds(currentSecondsLifeSpan)}
+    </span>
+  <p>seconds old!
   </p>
-  <p class="text-sm">date of birth: {dateOfBirth} </p>
-
-  <ul class="flex flex-col px-4 text-xl text-left gap-2">
-    <li>
-      <span class="text-xl">1.000.000 seconds</span>
-      : {formatTimeTo(timeToMillionSeconds)}
-      <span class="text-sm">at {oneMillionSecondsFromBirthDate}</span>
+  <ul class="flex flex-col px-4 text-xl text-left gap-6">
+    <li class="flex flex-col">
+      <span>
+        1.000.000 seconds:
+        {formatTimeTo(timeToMillionSeconds)}
+      </span>
+      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
+        at {oneMillionSecondsFromBirthDate}</span>
     </li>
-    <li>
-      <span class="text-xl">1.000.000.000 seconds</span>
-      : {formatTimeTo(timeToBillionSeconds)}
-      <span class="text-sm">at {oneBillionSecondsFromBirthDate}</span>
+    <li class="flex flex-col">
+      <span>
+        1.000.000.000 seconds:
+        {formatTimeTo(timeToBillionSeconds)}
+      </span>
+      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
+        at {oneBillionSecondsFromBirthDate}</span>
     </li>
-    <li>
-      <span class="text-xl">1.234.567.890 seconds</span>
-      : {formatTimeTo(timeToSpecialNumber)}
-      <span class="text-sm">{specialNumberFromBirthDate}</span>
+    <li class="flex flex-col">
+      <span>
+        1.234.567.890 seconds:
+        {formatTimeTo(timeToSpecialNumber)}
+      </span>
+      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
+        {specialNumberFromBirthDate}</span>
     </li>
   </ul>
 </main>
