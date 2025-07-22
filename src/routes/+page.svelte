@@ -4,9 +4,9 @@ import { onMount, onDestroy } from 'svelte';
 const daysInMonth = Array.from({length: 31}, (_, i) => i + 1)
 const months = Array.from({length: 12}, (_, i) => i + 1)
 // birthday of jrrtolkien
-let selectedDay = 3
-let selectedMonth = 1
-let selectedYear = 1892
+let selectedDay = 29
+let selectedMonth = 4
+let selectedYear = 1989
 let selectedHour = 5
 let selectedMinute = 0
 // VALIDATION
