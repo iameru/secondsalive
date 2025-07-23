@@ -1,5 +1,6 @@
 <script>
 import { onMount, onDestroy } from 'svelte';
+import { DiplayListInformation } from '../lib/displayListInformation.js';
 
 const daysInMonth = Array.from({length: 31}, (_, i) => i + 1)
 const months = Array.from({length: 12}, (_, i) => i + 1)
@@ -56,15 +57,7 @@ function lifetimeInSeconds(dateOfBirth) {
 function formatSeconds(seconds) {
   return new Intl.NumberFormat('de-DE').format(seconds);  // German-style: 1.000.000
 }
-function formatTimeTo(seconds) {
-  if (seconds < 0) {
-    return `${new Intl.NumberFormat('de-DE').format(-seconds)} seconds ago`;
-  }
-  return `in ${new Intl.NumberFormat('de-DE').format(seconds)} seconds`;
-}
 
-// we display the seconds from birthday of jrrtolkien
-//Counting..
 let currentSecondsLifeSpan = lifetimeInSeconds(dateOfBirth);
 let timeToMillionSeconds = 1_000_000 - currentSecondsLifeSpan
 let timeToBillionSeconds = 1_000_000_000 - currentSecondsLifeSpan
@@ -175,30 +168,21 @@ $: {
     </span>
   <p>seconds old!
   </p>
-  <ul class="flex flex-col px-4 text-xl text-left gap-6">
-    <li class="flex flex-col">
-      <span>
-        1.000.000 seconds:
-        {formatTimeTo(timeToMillionSeconds)}
-      </span>
-      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
-        at {oneMillionSecondsFromBirthDate}</span>
-    </li>
-    <li class="flex flex-col">
-      <span>
-        1.000.000.000 seconds:
-        {formatTimeTo(timeToBillionSeconds)}
-      </span>
-      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
-        at {oneBillionSecondsFromBirthDate}</span>
-    </li>
-    <li class="flex flex-col">
-      <span>
-        1.234.567.890 seconds:
-        {formatTimeTo(timeToSpecialNumber)}
-      </span>
-      <span class="px-1 text-sm bg-purple-100 rounded max-w-fit">
-        {specialNumberFromBirthDate}</span>
-    </li>
+  <ul class="flex flex-col px-4 text-xl text-left gap-6 mb-8">
+    <DiplayListInformation
+      eventName="1.000.000 seconds"
+      secondsToEvent={timeToMillionSeconds}
+      eventDate={oneMillionSecondsFromBirthDate}
+    />
+    <DiplayListInformation
+      eventName="1.000.000.000 seconds"
+      secondsToEvent={timeToBillionSeconds}
+      eventDate={oneBillionSecondsFromBirthDate}
+    />
+    <DiplayListInformation
+      eventName="1.234.567.890 seconds"
+      secondsToEvent={timeToSpecialNumber}
+      eventDate={specialNumberFromBirthDate}
+    />
   </ul>
 </main>
