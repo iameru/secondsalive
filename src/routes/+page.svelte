@@ -119,6 +119,7 @@ $: {
       eventName={event.name}
       secondsToEvent={event.secondsToEvent}
       eventDate={event.date}
+      ageString={event.ageString}
     />
     {/each}
   </ul>

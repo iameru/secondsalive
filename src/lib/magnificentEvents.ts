@@ -8,10 +8,21 @@ export const magnificentEvents = [
 export function buildEvents(dateOfBirth: Date, currentSecondsLifeSpan: number) {
   const result: List[any]= []
   magnificentEvents.forEach(event => {
+
+    const dateOfEvent = new Date(dateOfBirth.getTime() + event.seconds*1000)
+
+    const ageFromSecondsString = (seconds) => {
+      const years = Math.floor(seconds / 31536000)
+      const months = Math.floor((seconds % 31536000) / 2592000)
+      const days = Math.floor((seconds % 2592000) / 86400)
+      return `${years} years, ${months} months, ${days} days`
+    }
+
     event = {
       ...event,
-      date: new Date(dateOfBirth.getTime() + event.seconds*1000),
-      secondsToEvent: event.seconds - currentSecondsLifeSpan
+      date: dateOfEvent,
+      secondsToEvent: event.seconds - currentSecondsLifeSpan,
+      ageString: ageFromSecondsString(event.seconds)
     }
     result.push(event)
   })
